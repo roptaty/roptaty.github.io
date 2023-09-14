@@ -3,46 +3,45 @@
 
 <head>
     <title>STRIDE Card lookup</title>
-    <style type="text/css">
-        div.content {
-            width: 1000px;
-            margin: 20px auto;
-            border: 1px dashed #000;
-            background-color: #ffe;
-            padding: 10px 40px;
-        }
-        
-        div.content h1 {
-            text-align: center;
-        }
-    
-        div.explain {
-            margin-bottom: 60px;                
-        }
-    
-        div.card {
-            padding: 10px 5px;
-        }
-    
-        
-        div.cardForm input[type=text] {        
-            width: 400px;        
-            margin-bottom: 10px;
-        }
-    
-        div.cardForm input[type=button] {        
-            margin: 20px;
-            padding: 10px;
-            display: block;                   
-            box-sizing: border-box;
-            width: 100px;
-            margin: 0 auto;
-            text-align: center;
-        }
-    
-    </style>
-
 </head>
+<style type="text/css">
+    div.content {
+        width: 1000px;
+        margin: 20px auto;
+        border: 1px dashed #000;
+        background-color: #ffe;
+        padding: 10px 40px;
+    }
+    
+    div.content h1 {
+        text-align: center;
+    }
+
+    div.explain {
+        margin-bottom: 60px;                
+    }
+
+    div.card {
+        padding: 10px 5px;
+    }
+
+    
+    div.cardForm input[type=text] {        
+        width: 400px;        
+        margin-bottom: 10px;
+    }
+
+    div.cardForm input[type=button] {        
+        margin: 20px;
+        padding: 10px;
+        display: block;                   
+        box-sizing: border-box;
+        width: 100px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+</style>
 
 <body>
 
@@ -66,7 +65,7 @@
 
     <script type="text/javascript">
 
-        let cardYaml = {
+        let cards_descriptions = {
             Spoofing: {
                 2: "An attacker could take over the port or socket that the server normally uses.",
                 3: "An attacker could try one credential after another and there's nothing to slow them down (online or offline)",
@@ -162,14 +161,14 @@
 
 
         function convertCards() {
-            let cardsContentElement = document.getElementById("cards");
-            cardsContentElement.innerHTML = "";
+            let cards_element = document.getElementById("cards");
+            cards_element.innerHTML = "";
 
             let card_input = document.getElementById("card_input");
             let text = card_input.value;
 
-            let cardsArray = text.split(' ');
-            let lookupMap = {
+            let cards = text.split(' ');
+            let lookup_map = {
                 'S': "Spoofing",
                 'T': "Tampering",
                 'R': "Repudiation",
@@ -177,17 +176,17 @@
                 'D': "Denial of service",
                 'E': "Elevation of privilege"
             }
-            cardsArray.forEach(element => {
+            cards.forEach(element => {
                 let suit = element[0];
                 let value = element.substring(1);
-                let suitValue = lookupMap[suit];
-                let cardText = cardYaml[suitValue][value];
+                let suit_value = lookup_map[suit];
+                let card_text = cards_descriptions[suit_value][value];
 
-                let newElement = document.createElement("div");
-                newElement.classList = "card";
-                newElement.innerText = suitValue + ': (' + element + ') ' + cardText + ".";
+                let new_element = document.createElement("div");
+                new_element.classList = "card";
+                new_element.innerText = suit_value + ' (' + value + '): ' + card_text + ".";
 
-                cardsContentElement.appendChild(newElement);
+                cards_element.appendChild(new_element);
             });
 
         }
